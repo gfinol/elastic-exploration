@@ -1,1 +1,1 @@
-# Exploiting Inherent Elasticity of Serverless in Irregular Algorithms
+# Exploiting Inherent Elasticity of Serverless in Algorithms with Unbalanced and Irregular Workloads
