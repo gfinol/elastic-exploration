@@ -22,6 +22,11 @@ public abstract class ServerlessHybridExecutorService implements ExecutorService
         serverlessExecutorService = Executors.newFixedThreadPool(2000);
     }
 
+    public ServerlessHybridExecutorService(int numLocalThreads, int numServerlessThreads) {
+        localExecutorService = Executors.newFixedThreadPool(numLocalThreads);
+        serverlessExecutorService = Executors.newFixedThreadPool(numServerlessThreads);
+    }
+
     protected String printExecutorPrefix() {
         return "[" + this.executorName + "] ";
     }

@@ -53,7 +53,13 @@ mvn clean package
 
 ## How to run the experiments
 
-Once the project has been built, you can run the experiments using the following command:
+Once the project has been built, you will find the jar file inside the `target` folder. To easily run the experiments, you can navigate to the `target` folder:
+
+```bash
+cd target
+```
+
+You can run the experiments using the following command:
 
 ```bash
 java -cp utslambda-1.0.jar <experiment.class.name> <experiment.args>
@@ -86,7 +92,7 @@ There are various implementations of the UTS algorithm that can be run. All the 
 So, for example. To run the Serverless implementation with a depth of 17, a maximum concurrency of 100 and a warmup phase with depth 15, you can use the following command:
 
 ```bash
-java -cp utslambda-1.0.jar eu.cloudbutton.utslambda.serverless.taskmanager.TMServerlessUT -depth 17 -warmupDepth 15 -workers 100
+java -cp utslambda-1.0.jar eu.cloudbutton.utslambda.serverless.taskmanager.TMServerlessUTS -depth 17 -warmupDepth 15 -workers 100
 ```
 
 ### Mandelbrot with Mariani Silver

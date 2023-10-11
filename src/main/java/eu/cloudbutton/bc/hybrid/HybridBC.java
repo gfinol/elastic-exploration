@@ -33,9 +33,6 @@ public class HybridBC {
 
     static List<TaskStats> taskStatsList = Collections.synchronizedList(new ArrayList<>());
 
-    //public AtomicInteger launchedFunctions = new AtomicInteger(0);
-    // public AtomicInteger returnedFunctions = new AtomicInteger(0);
-
     // Constructor
     public HybridBC(RMat rmat, int permute, int g) {
         this.rmat = rmat;
@@ -136,20 +133,12 @@ public class HybridBC {
         @Override
         public Object call() throws Exception {
             long invokeTs = System.currentTimeMillis();
-//            java.util.Random random = new java.util.Random();
-//            while (hybridExecutorService.isLocalExecutorIdle() && hybridExecutorService.isServerlessExecutorIdle()){
-//                Thread.sleep(50 + random.nextInt(25));
-//            }
             Future<HybridResult> f = hybridExecutorService.submit(
                     new HybridCallable(startIndex, endIndex, rmat, permute));
-            //System.out.println("Submitted " + startIndex);
             HybridResult result = f.get();
             double[] bMapLocal = result.getBetweennessMap();
-            //int countNotZeros = 0;
             for(int i=0;i<N;i++) {
                 if (bMapLocal[i] != 0) {
-                    //countNotZeros++;
-                    //betweennessMap[i] += bMapLocal[i];
                     betweennessMap[i].add(bMapLocal[i]);
                 }
             }
@@ -160,9 +149,6 @@ public class HybridBC {
                     invokeTs - refTs,
                     resultTs - refTs
                     ));
-            //System.out.println("countNotZeros = " + countNotZeros);
-            //System.out.println("future.get() " + startIndex);
-            //returnedFunctions.addAndGet(1);
 
             return null;
         }
@@ -174,26 +160,13 @@ public class HybridBC {
         refTs = System.currentTimeMillis();
         List<Future<Object>> futures = new ArrayList<>();
         for (int i = 0; i < N; i = i + g) {
-            //bc.bfsShortestPath(i);
-
-            /*while(launchedFunctions.get() - returnedFunctions.get() > 1000){ // FIXME: necessary, now?
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }*/
-
-            //launchedFunctions.addAndGet(1);
             Future<Object> f = localExecutorService.submit(new LocalCallable(i, i + g - 1, rmat, permute));
             futures.add(f);
-            //System.out.println("Submitted local " + i);
         }
 
         for (Future<Object> f : futures){
             try {
                f.get();
-               // System.out.println("future.get() local");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -229,12 +202,15 @@ public class HybridBC {
         //printUsedOptions(opts);
 
         try {
-            System.out.println("local workers set to " + opts.parallelism);
+
+            System.out.println("Total workers set to " + opts.parallelism);
+            int nCpus = Runtime.getRuntime().availableProcessors();
+            int cloudWorkers = opts.parallelism - nCpus;
             System.out.println("g set to " + opts.g);
-            hybridExecutorService = new AWSLambdaHybridExecutorService(20, 28 );
+            hybridExecutorService = new AWSLambdaHybridExecutorService(nCpus, cloudWorkers);
             hybridExecutorService.setLogs(false);
 
-            localExecutorService = Executors.newFixedThreadPool(52 ) ;
+            localExecutorService = Executors.newFixedThreadPool(opts.parallelism ) ;
 
             long setupTime = -System.nanoTime();
             HybridBC bc = new HybridBC(new RMat(opts.seed, opts.n, opts.a, opts.b, opts.c, opts.d), opts.permute, opts.g);

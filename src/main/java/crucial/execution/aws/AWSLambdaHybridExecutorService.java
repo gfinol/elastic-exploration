@@ -19,6 +19,10 @@ public class AWSLambdaHybridExecutorService extends ServerlessHybridExecutorServ
         super(numLocalThreads);
     }
 
+    public AWSLambdaHybridExecutorService(int numLocalThreads, int numServerlessThreads) {
+        super(numLocalThreads, numServerlessThreads);
+    }
+
     @Override
     protected byte[] invokeExternal(byte[] threadCall) {
         if (logs) {
