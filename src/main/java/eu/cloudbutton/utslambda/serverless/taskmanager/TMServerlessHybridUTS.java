@@ -20,11 +20,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * @author Gerard
  */
 public class TMServerlessHybridUTS {
-    static {
-        Config.functionName = "CloudThread-utslambda";
-        Config.region = Regions.EU_WEST_1;
-        //Config.region = Regions.US_EAST_1;
-    }
+    
 
     public static long run(final int parallelism, final int numberOfIterationsPerWave, final int depth) {
         refTs = System.currentTimeMillis();

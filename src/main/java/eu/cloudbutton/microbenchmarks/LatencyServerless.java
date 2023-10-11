@@ -11,10 +11,7 @@ import java.util.concurrent.Future;
 
 public class LatencyServerless {
 
-    static {
-        Config.functionName="CloudThread-utslambda";
-        Config.region= Regions.EU_WEST_1;
-    }
+    
 
     private static ServerlessExecutorService awsExecutorService;
     private static int N = 1000;

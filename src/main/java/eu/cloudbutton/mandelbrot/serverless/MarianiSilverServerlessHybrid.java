@@ -34,9 +34,7 @@ public class MarianiSilverServerlessHybrid {
     private static int[] colors;
 
     static {
-        Config.functionName = "CloudThread-utslambda";
-        Config.region = Regions.EU_WEST_1;
-
+        
         colors = new int[MarianiSilverServerlessHybrid.MAX_DWELL];
         for (int i = 0; i < MarianiSilverServerlessHybrid.MAX_DWELL; i++) {
             colors[i] = Color.HSBtoRGB(i / 256f, 1, i / (i + 8f)); // brownish

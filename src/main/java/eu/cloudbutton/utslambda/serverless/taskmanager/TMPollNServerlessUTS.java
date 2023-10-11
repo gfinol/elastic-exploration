@@ -26,9 +26,7 @@ import eu.cloudbutton.utslambda.Utils;
  *
  */
 public class TMPollNServerlessUTS {
-    static {
-        Config.functionName = "CloudThread-utslambda";
-    }
+    
 
     public static long run(final int parallelism, final int numberOfIterationsPerWave, final int depth) {
         TMPollNServerlessUTS waves = new TMPollNServerlessUTS(parallelism, numberOfIterationsPerWave);
