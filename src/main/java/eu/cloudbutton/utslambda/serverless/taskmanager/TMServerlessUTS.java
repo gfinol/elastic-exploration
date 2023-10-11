@@ -202,8 +202,8 @@ public class TMServerlessUTS {
 
             localExecutorService = Executors.newFixedThreadPool(opts.parallelism);
 
-            final int parallelism = 5;//200; //5;
-            final int numberOfIterationsPerWave =  5_000_000;//50_000; // 5_000_000;
+            final int parallelism = 200; //5;
+            final int numberOfIterationsPerWave = 50_000; // 5_000_000;
 
             /*
              * // Warmup phase if (opts.warmupDepth > 0) { System.out.println("Warmup...");
