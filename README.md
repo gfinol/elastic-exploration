@@ -44,6 +44,15 @@ The deployment of the function to AWS Lambda is done using the following command
 mvn package shade:shade lambda:deploy-lambda -DskipTests
 ```
 
+### Crucial's configuration
+
+Fill in the [Config.java](src/main/java/eu/cloudbutton/config/Config.java) file. There are two things that need to be filled in:
+
+- Region where the function is deployed. Example: `Regions.EU_WEST_1`
+- Function name with the format: `<functionName>-<functionNameSuffix>`. 
+
+This configuration is used to invoke the functions. 
+
 ## How to build the project
 This project uses Maven as a build tool. To build the project, run the following command:
 
