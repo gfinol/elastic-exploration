@@ -46,7 +46,7 @@ mvn package shade:shade lambda:deploy-lambda -DskipTests
 
 ### Crucial's configuration
 
-Fill in the [Config.java](src/main/java/eu/cloudbutton/config/Config.java) file. There are two things that need to be filled in:
+Fill in the [Config.java](src/main/java/crucial/execution/aws/Config.java) file. There are two things that need to be filled in:
 
 - Region where the function is deployed. Example: `Regions.EU_WEST_1`
 - Function name with the format: `<functionName>-<functionNameSuffix>`. 
@@ -71,7 +71,7 @@ cd target
 You can run the experiments using the following command:
 
 ```bash
-java -cp utslambda-1.0.jar <experiment.class.name> <experiment.args>
+java -Xmx10g -Xms10g -cp utslambda-1.0.jar <experiment.class.name> <experiment.args>
 ```
 
 Where `<experiment.class.name>` is the name of the class that contains the experiment to run, and `<experiment.args>` are the arguments that will be passed to the experiment. In the following sections you can find the list of experiments that can be run, and the arguments that they require.
@@ -101,7 +101,7 @@ There are various implementations of the UTS algorithm that can be run. All the 
 So, for example. To run the Serverless implementation with a depth of 17, a maximum concurrency of 100 and a warmup phase with depth 15, you can use the following command:
 
 ```bash
-java -cp utslambda-1.0.jar eu.cloudbutton.utslambda.serverless.taskmanager.TMServerlessUTS -depth 17 -warmupDepth 15 -workers 100
+java -Xmx10g -Xms10g -cp utslambda-1.0.jar eu.cloudbutton.utslambda.serverless.taskmanager.TMServerlessUTS -depth 17 -warmupDepth 15 -workers 100
 ```
 
 ### Mandelbrot with Mariani Silver
@@ -123,7 +123,7 @@ There are various implementations of the Mandelbrot with Mariani Silver algorith
 So, for example. To run the Serverless implementation with an image of 1024x1024 pixels, a maximum concurrency of 100, you can use the following command:
 
 ```bash
-java -cp utslambda-1.0.jar eu.cloudbutton.mandelbrot.serverless.MarianiSilverServerless -width 1024 -height 1024 -workers 100
+java -Xmx10g -Xms10g -cp utslambda-1.0.jar eu.cloudbutton.mandelbrot.serverless.MarianiSilverServerless -width 1024 -height 1024 -workers 100
 ```
 
 
@@ -152,5 +152,5 @@ There are various implementations of the Betweenness Centrality algorithm that c
 So, for example. To run the Serverless implementation with $2^{17}$ vertices, a maximum concurrency of 100 and 64 vertices per task, you can use the following command:
 
 ```bash
-java -cp utslambda-1.0.jar eu.cloudbutton.bc.serverless.ServerlessBC -n 17 -w 100 -g 64
+java -Xmx10g -Xms10g -cp utslambda-1.0.jar eu.cloudbutton.bc.serverless.ServerlessBC -n 17 -w 100 -g 64
 ```
